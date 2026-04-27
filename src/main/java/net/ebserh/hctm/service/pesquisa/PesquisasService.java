@@ -225,4 +225,19 @@ public class PesquisasService {
         }
     }
 
+    public List<Pesquisador> buscaPesquisadoresPorEmail(String eMail) {
+        if (StringUtils.isBlank(eMail))
+            throw new CustomRuntimeException("É necessário informar o e-mail para pesquisar.");
+
+        try {
+            return entityManager
+                    .createNamedQuery("Pesquisador.findByEmailLike", Pesquisador.class)
+                    .setParameter("eMail", String.format("%%%s%%", eMail.toLowerCase()))
+                    .getResultList();
+        } catch (Exception e) {
+            LOGGER.log(Level.SEVERE, e.getMessage(), e);
+            throw new CustomRuntimeException("Ocorreu um erro ao buscar os pesquisadores.");
+        }
+    }
+
 }

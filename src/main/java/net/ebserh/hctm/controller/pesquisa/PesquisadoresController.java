@@ -7,6 +7,7 @@ import net.ebserh.hctm.model.pesquisa.Pesquisador;
 import net.ebserh.hctm.service.pesquisa.PesquisasService;
 import net.ebserh.hctm.util.FacesUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.poi.poifs.crypt.agile.DataIntegrity;
 import org.primefaces.PrimeFaces;
 
 import java.io.Serializable;
@@ -47,6 +48,12 @@ public class PesquisadoresController implements Serializable {
         }
 
         try {
+            List<Pesquisador> listaPesquisadores = pesquisasService.buscaPesquisadoresPorEmail(pesquisador.geteMail());
+            if(!listaPesquisadores.isEmpty()){
+                FacesUtils.showInfo("O pesquisador já existe no sistema.");
+                return;
+            }
+
             pesquisasService.salvaPesquisador(pesquisador);
             PrimeFaces.current().executeScript("PF('dialogPesquisador').hide()");
             FacesUtils.showInfo("Pesquisador salvo com sucesso!");
