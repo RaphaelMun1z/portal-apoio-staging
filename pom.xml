@@ -30,6 +30,16 @@
         <version.liberty>3.11.1</version.liberty>
 	</properties>
 
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>org.apache.commons</groupId>
+				<artifactId>commons-imaging</artifactId>
+				<version>1.0-alpha3</version>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+
 	<dependencies>
 		<dependency>
 			<groupId>jakarta.platform</groupId>
